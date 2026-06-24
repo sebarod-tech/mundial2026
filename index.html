@@ -717,11 +717,13 @@ function getMejorTercero(grupos) {
   return t[0]||null;
 }
 function findPartido(id) {
-  for (const r of Object.values(BRACKET)) {
-    if (Array.isArray(r)) {
-      for (const p of r) {
-        if (p.id === id) return p;
-      }
+  // Recorre todas las llaves del objeto BRACKET de forma segura
+  const etapas = Object.keys(BRACKET);
+  for (let i = 0; i < etapas.length; i++) {
+    const listaPartidos = BRACKET[etapas[i]];
+    if (Array.isArray(listaPartidos)) {
+      const encontrado = listaPartidos.find(p => p.id === id);
+      if (encontrado) return encontrado;
     }
   }
   return null;
@@ -734,27 +736,47 @@ function grupoTienePartidos(grupo) {
 
 function resolverSlot(slot) {
   if (!slot) return null;
-  if (slot.tipo==='pos') {
-    // Solo mostrar si el grupo tiene al menos un partido jugado
-    if (!grupoTienePartidos(slot.grupo)) return null;
-    return getClasificadoGrupo(slot.grupo, slot.pos);
+
+  // LÓGICA PARA POSICIONES DE GRUPOS
+  if (slot.tipo === 'pos') {
+    const tabla = tablas[slot.grupo];
+    if (!tabla || !tabla[slot.pos - 1]) return null;
+    return {
+      nombre: tabla[slot.pos - 1].nombre,
+      bandera: tabla[slot.pos - 1].bandera
+    };
   }
-  if (slot.tipo==='3ro') {
-    // Solo mostrar si alguno de los grupos tiene partidos
-    const algunoConPartidos = slot.grupos.some(g => grupoTienePartidos(g));
-    if (!algunoConPartidos) return null;
-    return getMejorTercero(slot.grupos);
+
+  // LÓGICA PARA GANADORES DE LLAVES ANTERIORES
+  if (slot.tipo === 'ganador') {
+    const p = findPartido(slot.partido);
+    if (!p) return null; // Si no encuentra el partido, frena de forma segura
+    
+    const r = resultados[p.id];
+    if (!r || r.h === '' || r.v === '' || r.h === undefined || r.v === undefined) return null;
+    
+    const gh = parseInt(r.h), gv = parseInt(r.v);
+    if (isNaN(gh) || !isNaN(gv) && gh === gv) return null; // Empates o vacíos
+    
+    // Retorna el ganador real del partido evaluado
+    return gh > gv ? resolverSlot(p.s1) : resolverSlot(p.s2);
   }
-  if (slot.tipo==='ganador'||slot.tipo==='perdedor') {
-    const r=resultados[slot.partido];
-    if (!r||r.h===''||r.h===undefined||r.v===''||r.v===undefined) return null;
-    const gh=parseInt(r.h),gv=parseInt(r.v);
-    if (isNaN(gh)||isNaN(gv)||gh===gv) return null;
-    const p=findPartido(slot.partido); if(!p) return null;
-    const e1=resolverSlot(p.s1), e2=resolverSlot(p.s2);
-    if (slot.tipo==='ganador') return gh>gv?e1:e2;
-    return gh>gv?e2:e1;
+
+  // LÓGICA PARA PERDEDORES (TERCER PUESTO)
+  if (slot.tipo === 'perdedor') {
+    const p = findPartido(slot.partido);
+    if (!p) return null;
+    
+    const r = resultados[p.id];
+    if (!r || r.h === '' || r.v === '') return null;
+    
+    const gh = parseInt(r.h), gv = parseInt(r.v);
+    if (isNaN(gh) || gh === gv) return null;
+    
+    // Retorna el perdedor real del partido evaluado
+    return gh < gv ? resolverSlot(p.s1) : resolverSlot(p.s2);
   }
+
   return null;
 }
 function labelSlot(slot) {
