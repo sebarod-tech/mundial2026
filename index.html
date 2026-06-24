@@ -400,55 +400,66 @@ const PARTIDOS_GRUPOS = [
   {id:'J6',g:'J',h:'Argelia',v:'Austria',fecha:'Sáb 27 Jun',hora:'23:00',sede:'Kansas City'}
 ];
 // ============================================================
-// BRACKET OFICIAL FIFA 2026
+// ESTRUCTURA COMPLETA DEL BRACKET (CORREGIDO FIFA 2026)
 // ============================================================
 const BRACKET = {
-  r16:[
-    {id:'R16_1', s1:{tipo:'pos',grupo:'A',pos:2}, s2:{tipo:'pos',grupo:'B',pos:2}, fecha:'28 Jun',sede:'Los Ángeles'},
-    {id:'R16_2', s1:{tipo:'pos',grupo:'E',pos:1}, s2:{tipo:'3ro',grupos:['A','B','C','D','F']}, fecha:'29 Jun',sede:'Houston'},
-    {id:'R16_3', s1:{tipo:'pos',grupo:'F',pos:1}, s2:{tipo:'pos',grupo:'C',pos:2}, fecha:'29 Jun',sede:'Boston'},
-    {id:'R16_4', s1:{tipo:'pos',grupo:'C',pos:1}, s2:{tipo:'pos',grupo:'F',pos:2}, fecha:'29 Jun',sede:'Monterrey'},
-    {id:'R16_5', s1:{tipo:'pos',grupo:'I',pos:1}, s2:{tipo:'3ro',grupos:['C','D','F','G','H']}, fecha:'30 Jun',sede:'Dallas'},
-    {id:'R16_6', s1:{tipo:'pos',grupo:'E',pos:2}, s2:{tipo:'pos',grupo:'I',pos:2}, fecha:'30 Jun',sede:'Nueva Jersey'},
-    {id:'R16_7', s1:{tipo:'pos',grupo:'A',pos:1}, s2:{tipo:'3ro',grupos:['C','E','F','H','I']}, fecha:'30 Jun',sede:'Ciudad de México'},
-    {id:'R16_8', s1:{tipo:'pos',grupo:'D',pos:1}, s2:{tipo:'3ro',grupos:['B','E','F','I','J']}, fecha:'1 Jul',sede:'Seattle'},
-    {id:'R16_9', s1:{tipo:'pos',grupo:'G',pos:1}, s2:{tipo:'3ro',grupos:['A','E','H','I','J']}, fecha:'1 Jul',sede:'San Francisco'},
-    {id:'R16_10',s1:{tipo:'pos',grupo:'L',pos:1}, s2:{tipo:'3ro',grupos:['E','H','I','J','K']}, fecha:'1 Jul',sede:'Atlanta'},
-    {id:'R16_11',s1:{tipo:'pos',grupo:'K',pos:2}, s2:{tipo:'pos',grupo:'L',pos:2}, fecha:'2 Jul',sede:'Los Ángeles'},
-    {id:'R16_12',s1:{tipo:'pos',grupo:'H',pos:1}, s2:{tipo:'pos',grupo:'J',pos:2}, fecha:'2 Jul',sede:'Toronto'},
-    {id:'R16_13',s1:{tipo:'pos',grupo:'B',pos:1}, s2:{tipo:'3ro',grupos:['E','F','G','I','J']}, fecha:'2 Jul',sede:'Vancouver'},
-    {id:'R16_14',s1:{tipo:'pos',grupo:'J',pos:1}, s2:{tipo:'pos',grupo:'H',pos:2}, fecha:'3 Jul',sede:'Dallas'},
-    {id:'R16_15',s1:{tipo:'pos',grupo:'K',pos:1}, s2:{tipo:'3ro',grupos:['D','E','I','J','L']}, fecha:'3 Jul',sede:'Miami'},
-    {id:'R16_16',s1:{tipo:'pos',grupo:'D',pos:2}, s2:{tipo:'pos',grupo:'G',pos:2}, fecha:'3 Jul',sede:'Kansas City'},
+  // DIECISEISAVOS DE FINAL (Ronda de 32 equipos)
+  r32: [
+    {id:'R32_1', fecha:'Dom 28 Jun', hora:'13:00', sede:'Los Ángeles', s1:{tipo:'pos',grupo:'A',pos:2}, s2:{tipo:'pos',grupo:'B',pos:2}},
+    {id:'R32_2', fecha:'Lun 29 Jun', hora:'14:00', sede:'Houston', s1:{tipo:'pos',grupo:'C',pos:1}, s2:{tipo:'pos',grupo:'F',pos:2}},
+    {id:'R32_3', fecha:'Lun 29 Jun', hora:'17:30', sede:'Boston', s1:{tipo:'pos',grupo:'E',pos:1}, s2:{tipo:'3ro',grupos:['A','B','C','D','F']}},
+    {id:'R32_4', fecha:'Lun 29 Jun', hora:'22:00', sede:'Monterrey', s1:{tipo:'pos',grupo:'F',pos:1}, s2:{tipo:'pos',grupo:'C',pos:2}},
+    {id:'R32_5', fecha:'Mar 30 Jun', hora:'14:00', sede:'Dallas', s1:{tipo:'pos',grupo:'E',pos:2}, s2:{tipo:'pos',grupo:'I',pos:2}},
+    {id:'R32_6', fecha:'Mar 30 Jun', hora:'18:00', sede:'Nueva York / Nueva Jersey', s1:{tipo:'pos',grupo:'I',pos:1}, s2:{tipo:'3ro',grupos:['C','D','F','G','H']}},
+    {id:'R32_7', fecha:'Mar 30 Jun', hora:'22:00', sede:'Ciudad de México', s1:{tipo:'pos',grupo:'A',pos:1}, s2:{tipo:'3ro',grupos:['C','E','F','H','I']}},
+    {id:'R32_8', fecha:'Mié 01 Jul', hora:'13:00', sede:'Atlanta', s1:{tipo:'pos',grupo:'L',pos:1}, s2:{tipo:'3ro',grupos:['E','H','I','J','K']}},
+    {id:'R32_9', fecha:'Mié 01 Jul', hora:'17:00', sede:'Seattle', s1:{tipo:'pos',grupo:'G',pos:1}, s2:{tipo:'3ro',grupos:['A','E','H','I','J']}},
+    {id:'R32_10', fecha:'Mié 01 Jul', hora:'21:00', sede:'San Francisco', s1:{tipo:'pos',grupo:'D',pos:1}, s2:{tipo:'3ro',grupos:['B','E','F','I','J']}},
+    {id:'R32_11', fecha:'Jue 02 Jul', hora:'16:00', sede:'Los Ángeles', s1:{tipo:'pos',grupo:'H',pos:1}, s2:{tipo:'pos',grupo:'J',pos:2}},
+    {id:'R32_12', fecha:'Jue 02 Jul', hora:'20:00', sede:'Toronto', s1:{tipo:'pos',grupo:'K',pos:2}, s2:{tipo:'pos',grupo:'L',pos:2}},
+    {id:'R32_13', fecha:'Jue 02 Jul', hora:'22:30', sede:'Kansas City', s1:{tipo:'pos',grupo:'K',pos:1}, s2:{tipo:'3ro',grupos:['D','E','I','J','L']}},
+    {id:'R32_14', fecha:'Vie 03 Jul', hora:'00:00', sede:'Vancouver', s1:{tipo:'pos',grupo:'B',pos:1}, s2:{tipo:'3ro',grupos:['E','F','G','I','J']}},
+    {id:'R32_15', fecha:'Vie 03 Jul', hora:'16:00', sede:'Dallas', s1:{tipo:'pos',grupo:'D',pos:2}, s2:{tipo:'pos',grupo:'G',pos:2}},
+    {id:'R32_16', fecha:'Vie 03 Jul', hora:'19:00', sede:'Miami', s1:{tipo:'pos',grupo:'J',pos:1}, s2:{tipo:'pos',grupo:'H',pos:2}}
   ],
-  qf:[
-    {id:'QF_1',s1:{tipo:'ganador',partido:'R16_1'},s2:{tipo:'ganador',partido:'R16_2'},fecha:'4 Jul',sede:'Philadelphia'},
-    {id:'QF_2',s1:{tipo:'ganador',partido:'R16_3'},s2:{tipo:'ganador',partido:'R16_4'},fecha:'4 Jul',sede:'Dallas'},
-    {id:'QF_3',s1:{tipo:'ganador',partido:'R16_5'},s2:{tipo:'ganador',partido:'R16_6'},fecha:'5 Jul',sede:'Nueva Jersey'},
-    {id:'QF_4',s1:{tipo:'ganador',partido:'R16_7'},s2:{tipo:'ganador',partido:'R16_8'},fecha:'5 Jul',sede:'Ciudad de México'},
-    {id:'QF_5',s1:{tipo:'ganador',partido:'R16_9'},s2:{tipo:'ganador',partido:'R16_10'},fecha:'6 Jul',sede:'Dallas'},
-    {id:'QF_6',s1:{tipo:'ganador',partido:'R16_11'},s2:{tipo:'ganador',partido:'R16_12'},fecha:'6 Jul',sede:'Seattle'},
-    {id:'QF_7',s1:{tipo:'ganador',partido:'R16_13'},s2:{tipo:'ganador',partido:'R16_14'},fecha:'7 Jul',sede:'Atlanta'},
-    {id:'QF_8',s1:{tipo:'ganador',partido:'R16_15'},s2:{tipo:'ganador',partido:'R16_16'},fecha:'7 Jul',sede:'Vancouver'},
-  ],
-  sf:[
-    {id:'SF_1',s1:{tipo:'ganador',partido:'QF_1'},s2:{tipo:'ganador',partido:'QF_2'},fecha:'9 Jul',sede:'Boston'},
-    {id:'SF_2',s1:{tipo:'ganador',partido:'QF_3'},s2:{tipo:'ganador',partido:'QF_4'},fecha:'10 Jul',sede:'Los Ángeles'},
-    {id:'SF_3',s1:{tipo:'ganador',partido:'QF_5'},s2:{tipo:'ganador',partido:'QF_6'},fecha:'11 Jul',sede:'Miami'},
-    {id:'SF_4',s1:{tipo:'ganador',partido:'QF_7'},s2:{tipo:'ganador',partido:'QF_8'},fecha:'11 Jul',sede:'Kansas City'},
-  ],
-  semi:[
-    {id:'SEMI_1',s1:{tipo:'ganador',partido:'SF_1'},s2:{tipo:'ganador',partido:'SF_2'},fecha:'14 Jul',sede:'Dallas'},
-    {id:'SEMI_2',s1:{tipo:'ganador',partido:'SF_3'},s2:{tipo:'ganador',partido:'SF_4'},fecha:'15 Jul',sede:'Atlanta'},
-  ],
-  ter:[
-    {id:'TER_1',s1:{tipo:'perdedor',partido:'SEMI_1'},s2:{tipo:'perdedor',partido:'SEMI_2'},fecha:'18 Jul',sede:'Miami'},
-  ],
-  fin:[
-    {id:'FIN_1',s1:{tipo:'ganador',partido:'SEMI_1'},s2:{tipo:'ganador',partido:'SEMI_2'},fecha:'19 Jul',sede:'Nueva Jersey'},
-  ],
-};
 
+  // OCTAVOS DE FINAL (Round of 16)
+  r16: [
+    {id:'R16_1', fecha:'Sáb 04 Jul', hora:'14:00', sede:'Houston', s1:{tipo:'ganador',partido:'R32_3'}, s2:{tipo:'ganador',partido:'R32_5'}},
+    {id:'R16_2', fecha:'Sáb 04 Jul', hora:'18:00', sede:'Philadelphia', s1:{tipo:'ganador',partido:'R32_4'}, s2:{tipo:'ganador',partido:'R32_7'}},
+    {id:'R16_3', fecha:'Dom 05 Jul', hora:'17:00', sede:'Nueva York / Nueva Jersey', s1:{tipo:'ganador',partido:'R32_2'}, s2:{tipo:'ganador',partido:'R32_6'}},
+    {id:'R16_4', fecha:'Dom 05 Jul', hora:'21:00', sede:'Ciudad de México', s1:{tipo:'ganador',partido:'R32_1'}, s2:{tipo:'ganador',partido:'R32_8'}},
+    {id:'R16_5', fecha:'Lun 06 Jul', hora:'16:00', sede:'Dallas', s1:{tipo:'ganador',partido:'R32_11'}, s2:{tipo:'ganador',partido:'R32_12'}},
+    {id:'R16_6', fecha:'Lun 06 Jul', hora:'21:00', sede:'Seattle', s1:{tipo:'ganador',partido:'R32_9'}, s2:{tipo:'ganador',partido:'R32_10'}},
+    {id:'R16_7', fecha:'Mar 07 Jul', hora:'13:00', sede:'Atlanta', s1:{tipo:'ganador',partido:'R32_15'}, s2:{tipo:'ganador',partido:'R32_16'}},
+    {id:'R16_8', fecha:'Mar 07 Jul', hora:'16:00', sede:'Vancouver', s1:{tipo:'ganador',partido:'R32_13'}, s2:{tipo:'ganador',partido:'R32_14'}}
+  ],
+
+  // CUARTOS DE FINAL
+  qf: [
+    {id:'QF_1', fecha:'Jue 09 Jul', hora:'16:00', sede:'Boston', s1:{tipo:'ganador',partido:'R16_1'}, s2:{tipo:'ganador',partido:'R16_2'}},
+    {id:'QF_2', fecha:'Vie 10 Jul', hora:'19:00', sede:'Los Ángeles', s1:{tipo:'ganador',partido:'R16_3'}, s2:{tipo:'ganador',partido:'R16_4'}},
+    {id:'QF_3', fecha:'Sáb 11 Jul', hora:'18:00', sede:'Miami', s1:{tipo:'ganador',partido:'R16_5'}, s2:{tipo:'ganador',partido:'R16_6'}},
+    {id:'QF_4', fecha:'Sáb 11 Jul', hora:'22:00', sede:'Kansas City', s1:{tipo:'ganador',partido:'R16_7'}, s2:{tipo:'ganador',partido:'R16_8'}}
+  ],
+
+  // SEMIFINALES
+  semi: [
+    {id:'SF_1', fecha:'Mar 14 Jul', hora:'22:00', sede:'Dallas', s1:{tipo:'ganador',partido:'QF_1'}, s2:{tipo:'ganador',partido:'QF_2'}},
+    {id:'SF_2', fecha:'Mié 15 Jul', hora:'22:00', sede:'Atlanta', s1:{tipo:'ganador',partido:'QF_3'}, s2:{tipo:'ganador',partido:'QF_4'}}
+  ],
+
+  // TERCER PUESTO
+  ter: [
+    {id:'3ER_1', fecha:'Sáb 18 Jul', hora:'17:00', sede:'Miami', s1:{tipo:'perdedor',partido:'SF_1'}, s2:{tipo:'perdedor',partido:'SF_2'}}
+  ],
+
+  // GRAN FINAL
+  fin: [
+    {id:'FIN_1', fecha:'Dom 19 Jul', hora:'16:00', sede:'Nueva York / Nueva Jersey', s1:{tipo:'ganador',partido:'SF_1'}, s2:{tipo:'ganador',partido:'SF_2'}}
+  ]
+};
+  
 // ============================================================
 // ESTADO
 // ============================================================
