@@ -290,81 +290,104 @@ const GRUPOS = {
 };
 
 // ============================================================
-// FIXTURE FASE DE GRUPOS
+// FIXTURE FASE DE GRUPOS (CORREGIDO SEGÚN EL CALENDARIO)
 // ============================================================
 const PARTIDOS_GRUPOS = [
-  {id:'A1',g:'A',h:'México',v:'Sudáfrica',fecha:'Jue 11 Jun',hora:'16:00',sede:'Ciudad de México'},
-  {id:'A2',g:'A',h:'Corea del Sur',v:'Rep. Checa',fecha:'Jue 11 Jun',hora:'23:00',sede:'Guadalajara'},
-  {id:'B1',g:'B',h:'Canadá',v:'Bosnia-Herz.',fecha:'Vie 12 Jun',hora:'16:00',sede:'Toronto'},
-  {id:'D1',g:'D',h:'EE.UU.',v:'Paraguay',fecha:'Vie 12 Jun',hora:'22:00',sede:'Los Ángeles'},
-  {id:'B2',g:'B',h:'Qatar',v:'Suiza',fecha:'Sáb 13 Jun',hora:'16:00',sede:'San Francisco'},
-  {id:'C1',g:'C',h:'Brasil',v:'Marruecos',fecha:'Sáb 13 Jun',hora:'19:00',sede:'Nueva Jersey'},
-  {id:'C2',g:'C',h:'Haití',v:'Escocia',fecha:'Sáb 13 Jun',hora:'22:00',sede:'Boston'},
-  {id:'D2',g:'D',h:'Australia',v:'Turquía',fecha:'Dom 14 Jun',hora:'01:00',sede:'Vancouver'},
-  {id:'E1',g:'E',h:'Alemania',v:'Curazao',fecha:'Dom 14 Jun',hora:'14:00',sede:'Houston'},
-  {id:'F1',g:'F',h:'Países Bajos',v:'Japón',fecha:'Dom 14 Jun',hora:'17:00',sede:'Dallas'},
-  {id:'E2',g:'E',h:'Costa de Marfil',v:'Ecuador',fecha:'Dom 14 Jun',hora:'20:00',sede:'Philadelphia'},
-  {id:'F2',g:'F',h:'Suecia',v:'Túnez',fecha:'Dom 14 Jun',hora:'23:00',sede:'Monterrey'},
-  {id:'H1',g:'H',h:'España',v:'Cabo Verde',fecha:'Lun 15 Jun',hora:'13:00',sede:'Atlanta'},
-  {id:'G1',g:'G',h:'Bélgica',v:'Egipto',fecha:'Lun 15 Jun',hora:'16:00',sede:'Seattle'},
-  {id:'H2',g:'H',h:'Arabia Saudita',v:'Uruguay',fecha:'Lun 15 Jun',hora:'19:00',sede:'Miami'},
-  {id:'G2',g:'G',h:'Irán',v:'Nueva Zelanda',fecha:'Lun 15 Jun',hora:'22:00',sede:'Los Ángeles'},
-  {id:'I1',g:'I',h:'Francia',v:'Senegal',fecha:'Mar 16 Jun',hora:'16:00',sede:'Nueva Jersey'},
-  {id:'I2',g:'I',h:'Irak',v:'Noruega',fecha:'Mar 16 Jun',hora:'19:00',sede:'Boston'},
-  {id:'J1',g:'J',h:'Argentina',v:'Argelia',fecha:'Mar 16 Jun',hora:'22:00',sede:'Kansas City (Arrowhead)'},
-  {id:'J2',g:'J',h:'Austria',v:'Jordania',fecha:'Mié 17 Jun',hora:'01:00',sede:'San Francisco (Levis)'},
-  {id:'K1',g:'K',h:'Portugal',v:'RD Congo',fecha:'Mié 17 Jun',hora:'14:00',sede:'Houston'},
-  {id:'L1',g:'L',h:'Inglaterra',v:'Croacia',fecha:'Mié 17 Jun',hora:'17:00',sede:'Dallas'},
-  {id:'L2',g:'L',h:'Ghana',v:'Panamá',fecha:'Mié 17 Jun',hora:'20:00',sede:'Toronto'},
-  {id:'K2',g:'K',h:'Uzbekistán',v:'Colombia',fecha:'Mié 17 Jun',hora:'23:00',sede:'Ciudad de México'},
-  {id:'A3',g:'A',h:'Rep. Checa',v:'Sudáfrica',fecha:'Jue 18 Jun',hora:'13:00',sede:'Atlanta'},
-  {id:'B3',g:'B',h:'Suiza',v:'Bosnia-Herz.',fecha:'Jue 18 Jun',hora:'16:00',sede:'Los Ángeles'},
-  {id:'B4',g:'B',h:'Canadá',v:'Qatar',fecha:'Jue 18 Jun',hora:'19:00',sede:'Vancouver'},
-  {id:'A4',g:'A',h:'México',v:'Corea del Sur',fecha:'Jue 18 Jun',hora:'22:00',sede:'Guadalajara'},
-  {id:'D3',g:'D',h:'EE.UU.',v:'Australia',fecha:'Vie 19 Jun',hora:'16:00',sede:'Seattle'},
-  {id:'C3',g:'C',h:'Escocia',v:'Marruecos',fecha:'Vie 19 Jun',hora:'19:00',sede:'Boston'},
-  {id:'C4',g:'C',h:'Brasil',v:'Haití',fecha:'Vie 19 Jun',hora:'21:30',sede:'Philadelphia'},
-  {id:'D4',g:'D',h:'Turquía',v:'Paraguay',fecha:'Sáb 20 Jun',hora:'00:00',sede:'San Francisco'},
-  {id:'F3',g:'F',h:'Países Bajos',v:'Suecia',fecha:'Sáb 20 Jun',hora:'14:00',sede:'Houston'},
-  {id:'E3',g:'E',h:'Alemania',v:'Costa de Marfil',fecha:'Sáb 20 Jun',hora:'17:00',sede:'Toronto'},
-  {id:'E4',g:'E',h:'Ecuador',v:'Curazao',fecha:'Sáb 20 Jun',hora:'23:00',sede:'Kansas City'},
-  {id:'F4',g:'F',h:'Túnez',v:'Japón',fecha:'Dom 21 Jun',hora:'01:00',sede:'Monterrey'},
-  {id:'H3',g:'H',h:'España',v:'Arabia Saudita',fecha:'Dom 21 Jun',hora:'13:00',sede:'Atlanta'},
-  {id:'G3',g:'G',h:'Bélgica',v:'Irán',fecha:'Dom 21 Jun',hora:'16:00',sede:'Los Ángeles'},
-  {id:'H4',g:'H',h:'Uruguay',v:'Cabo Verde',fecha:'Dom 21 Jun',hora:'19:00',sede:'Miami'},
-  {id:'G4',g:'G',h:'Nueva Zelanda',v:'Egipto',fecha:'Dom 21 Jun',hora:'22:00',sede:'Vancouver'},
-  {id:'J3',g:'J',h:'Argentina',v:'Austria',fecha:'Lun 22 Jun',hora:'14:00',sede:'Dallas (AT&T Stadium)'},
-  {id:'I3',g:'I',h:'Francia',v:'Irak',fecha:'Lun 22 Jun',hora:'18:00',sede:'Philadelphia'},
-  {id:'I4',g:'I',h:'Noruega',v:'Senegal',fecha:'Lun 22 Jun',hora:'21:00',sede:'Nueva Jersey'},
-  {id:'J4',g:'J',h:'Jordania',v:'Argelia',fecha:'Mar 23 Jun',hora:'00:00',sede:'San Francisco (Levis)'},
-  {id:'K3',g:'K',h:'Portugal',v:'Uzbekistán',fecha:'Mar 23 Jun',hora:'14:00',sede:'Houston'},
-  {id:'L3',g:'L',h:'Inglaterra',v:'Ghana',fecha:'Mar 23 Jun',hora:'17:00',sede:'Boston'},
-  {id:'L4',g:'L',h:'Panamá',v:'Croacia',fecha:'Mar 23 Jun',hora:'20:00',sede:'Toronto'},
-  {id:'K4',g:'K',h:'Colombia',v:'RD Congo',fecha:'Mar 23 Jun',hora:'23:00',sede:'Guadalajara'},
-  {id:'B5',g:'B',h:'Suiza',v:'Canadá',fecha:'Mié 24 Jun',hora:'16:00',sede:'Vancouver'},
-  {id:'B6',g:'B',h:'Bosnia-Herz.',v:'Qatar',fecha:'Mié 24 Jun',hora:'16:00',sede:'Atlanta'},
-  {id:'A5',g:'A',h:'Sudáfrica',v:'Corea del Sur',fecha:'Mié 24 Jun',hora:'22:00',sede:'Miami'},
-  {id:'A6',g:'A',h:'México',v:'Rep. Checa',fecha:'Mié 24 Jun',hora:'22:00',sede:'Los Ángeles'},
-  {id:'C5',g:'C',h:'Marruecos',v:'Haití',fecha:'Jue 25 Jun',hora:'16:00',sede:'Seattle'},
-  {id:'C6',g:'C',h:'Escocia',v:'Brasil',fecha:'Jue 25 Jun',hora:'16:00',sede:'Boston'},
-  {id:'D5',g:'D',h:'Paraguay',v:'Australia',fecha:'Jue 25 Jun',hora:'22:00',sede:'Kansas City'},
-  {id:'D6',g:'D',h:'Turquía',v:'EE.UU.',fecha:'Jue 25 Jun',hora:'22:00',sede:'Houston'},
-  {id:'E5',g:'E',h:'Curazao',v:'Costa de Marfil',fecha:'Vie 26 Jun',hora:'16:00',sede:'Philadelphia'},
-  {id:'E6',g:'E',h:'Ecuador',v:'Alemania',fecha:'Vie 26 Jun',hora:'16:00',sede:'Dallas'},
-  {id:'F5',g:'F',h:'Japón',v:'Suecia',fecha:'Vie 26 Jun',hora:'22:00',sede:'Monterrey'},
-  {id:'F6',g:'F',h:'Túnez',v:'Países Bajos',fecha:'Vie 26 Jun',hora:'22:00',sede:'Toronto'},
-  {id:'G5',g:'G',h:'Egipto',v:'Bélgica',fecha:'Sáb 27 Jun',hora:'16:00',sede:'Ciudad de México'},
-  {id:'G6',g:'G',h:'Nueva Zelanda',v:'Irán',fecha:'Sáb 27 Jun',hora:'16:00',sede:'Los Ángeles'},
-  {id:'H5',g:'H',h:'Cabo Verde',v:'Arabia Saudita',fecha:'Sáb 27 Jun',hora:'22:00',sede:'Houston'},
-  {id:'H6',g:'H',h:'Uruguay',v:'España',fecha:'Sáb 27 Jun',hora:'22:00',sede:'Atlanta'},
-  {id:'J5',g:'J',h:'Jordania',v:'Argentina',fecha:'Sáb 27 Jun',hora:'23:00',sede:'Dallas (AT&T Stadium)'},
-  {id:'J6',g:'J',h:'Argelia',v:'Austria',fecha:'Sáb 27 Jun',hora:'23:00',sede:'Dallas (AT&T Stadium)'},
-  {id:'I5',g:'I',h:'Senegal',v:'Francia',fecha:'Dom 28 Jun',hora:'16:00',sede:'Guadalajara'},
-  {id:'I6',g:'I',h:'Noruega',v:'Irak',fecha:'Dom 28 Jun',hora:'16:00',sede:'Nueva Jersey'},
-  {id:'K5',g:'K',h:'RD Congo',v:'Portugal',fecha:'Dom 28 Jun',hora:'22:00',sede:'Seattle'},
-  {id:'K6',g:'K',h:'Colombia',v:'Uzbekistán',fecha:'Dom 28 Jun',hora:'22:00',sede:'Houston'},
-  {id:'L5',g:'L',h:'Croacia',v:'Ghana',fecha:'Lun 29 Jun',hora:'16:00',sede:'Vancouver'},
-  {id:'L6',g:'L',h:'Panamá',v:'Inglaterra',fecha:'Lun 29 Jun',hora:'16:00',sede:'Miami'},
+ // GRUPO A
+ {id:'A1',g:'A',h:'México',v:'Sudáfrica',fecha:'Jue 11 Jun',hora:'16:00',sede:'Ciudad de México'},
+ {id:'A2',g:'A',h:'Corea del Sur',v:'Rep. Checa',fecha:'Jue 11 Jun',hora:'22:00',sede:'Guadalajara'},
+ {id:'A3',g:'A',h:'Rep. Checa',v:'Sudáfrica',fecha:'Mar 16 Jun',hora:'13:00',sede:'Atlanta'},
+ {id:'A4',g:'A',h:'México',v:'Corea del Sur',fecha:'Sáb 20 Jun',hora:'22:00',sede:'Guadalajara'},
+ {id:'A5',g:'A',h:'Rep. Checa',v:'México',fecha:'Mié 24 Jun',hora:'22:00',sede:'Ciudad de México'},
+ {id:'A6',g:'A',h:'Sudáfrica',v:'Corea del Sur',fecha:'Mié 24 Jun',hora:'22:00',sede:'Monterrey'},
+
+ // GRUPO B
+ {id:'B1',g:'B',h:'Canadá',v:'Bosnia-Herz.',fecha:'Vie 12 Jun',hora:'16:00',sede:'Toronto'},
+ {id:'B2',g:'B',h:'Qatar',v:'Suiza',fecha:'Sáb 13 Jun',hora:'16:00',sede:'San Francisco'},
+ {id:'B3',g:'B',h:'Suiza',v:'Bosnia-Herz.',fecha:'Jue 18 Jun',hora:'16:00',sede:'Los Ángeles'},
+ {id:'B4',g:'B',h:'Canadá',v:'Qatar',fecha:'Jue 18 Jun',hora:'19:00',sede:'Vancouver'},
+ {id:'B5',g:'B',h:'Suiza',v:'Canadá',fecha:'Mié 24 Jun',hora:'16:00',sede:'Vancouver'},
+ {id:'B6',g:'B',h:'Bosnia-Herz.',v:'Qatar',fecha:'Mié 24 Jun',hora:'16:00',sede:'Seattle'},
+
+ // GRUPO C
+ {id:'C1',g:'C',h:'Brasil',v:'Marruecos',fecha:'Sáb 13 Jun',hora:'19:00',sede:'Boston'},
+ {id:'C2',g:'C',h:'Haití',v:'Escocia',fecha:'Sáb 13 Jun',hora:'22:00',sede:'Nueva York / Nueva Jersey'},
+ {id:'C3',g:'C',h:'Brasil',v:'Haití',fecha:'Vie 19 Jun',hora:'19:00',sede:'Philadelphia'},
+ {id:'C4',g:'C',h:'Escocia',v:'Marruecos',fecha:'Vie 19 Jun',hora:'22:00',sede:'Boston'},
+ {id:'C5',g:'C',h:'Escocia',v:'Brasil',fecha:'Jue 25 Jun',hora:'16:00',sede:'Miami'},
+ {id:'C6',g:'C',h:'Marruecos',v:'Haití',fecha:'Jue 25 Jun',hora:'19:00',sede:'Atlanta'},
+
+ // GRUPO D
+ {id:'D1',g:'D',h:'EE.UU.',v:'Paraguay',fecha:'Vie 12 Jun',hora:'20:00',sede:'Los Ángeles'},
+ {id:'D2',g:'D',h:'Australia',v:'Turquía',fecha:'Dom 14 Jun',hora:'01:00',sede:'Vancouver'},
+ {id:'D3',g:'D',h:'EE.UU.',v:'Australia',fecha:'Vie 19 Jun',hora:'01:00',sede:'Seattle'},
+ {id:'D4',g:'D',h:'Turquía',v:'Paraguay',fecha:'Sáb 20 Jun',hora:'16:00',sede:'San Francisco'},
+ {id:'D5',g:'D',h:'Turquía',v:'EE.UU.',fecha:'Jue 25 Jun',hora:'22:00',sede:'Los Ángeles'},
+ {id:'D6',g:'D',h:'Paraguay',v:'Australia',fecha:'Jue 25 Jun',hora:'22:00',sede:'San Francisco'},
+
+ // GRUPO E
+ {id:'E1',g:'E',h:'Alemania',v:'Curazao',fecha:'Dom 14 Jun',hora:'14:00',sede:'Philadelphia'},
+ {id:'E2',g:'E',h:'Costa de Marfil',v:'Ecuador',fecha:'Dom 14 Jun',hora:'20:00',sede:'Houston'},
+ {id:'E3',g:'E',h:'Alemania',v:'Costa de Marfil',fecha:'Sáb 20 Jun',hora:'17:00',sede:'Toronto'},
+ {id:'E4',g:'E',h:'Curazao',v:'Ecuador',fecha:'Sáb 20 Jun',hora:'21:00',sede:'Kansas City'},
+ {id:'E5',g:'E',h:'Ecuador',v:'Alemania',fecha:'Vie 26 Jun',hora:'17:00',sede:'Philadelphia'},
+ {id:'E6',g:'E',h:'Curazao',v:'Costa de Marfil',fecha:'Vie 26 Jun',hora:'17:00',sede:'Nueva York / Nueva Jersey'},
+
+ // GRUPO F
+ {id:'F1',g:'F',h:'Países Bajos',v:'Japón',fecha:'Dom 14 Jun',hora:'17:00',sede:'Dallas'},
+ {id:'F2',g:'F',h:'Suecia',v:'Túnez',fecha:'Dom 14 Jun',hora:'23:00',sede:'Monterrey'},
+ {id:'F3',g:'F',h:'Japón',v:'Túnez',fecha:'Sáb 20 Jun',hora:'01:00',sede:'Monterrey'},
+ {id:'F4',g:'F',h:'Países Bajos',v:'Suecia',fecha:'Sáb 20 Jun',hora:'14:00',sede:'Houston'},
+ {id:'F5',g:'F',h:'Túnez',v:'Países Bajos',fecha:'Vie 26 Jun',hora:'22:00',sede:'Dallas'},
+ {id:'F6',g:'F',h:'Japón',v:'Suecia',fecha:'Vie 26 Jun',hora:'22:00',sede:'Kansas City'},
+
+ // GRUPO G
+ {id:'G1',g:'G',h:'Bélgica',v:'Egipto',fecha:'Lun 15 Jun',hora:'18:00',sede:'Los Ángeles'},
+ {id:'G2',g:'G',h:'Irán',v:'Nueva Zelanda',fecha:'Lun 15 Jun',hora:'22:00',sede:'Seattle'},
+ {id:'G3',g:'G',h:'Bélgica',v:'Irán',fecha:'Dom 21 Jun',hora:'16:00',sede:'Los Ángeles'},
+ {id:'G4',g:'G',h:'Egipto',v:'Nueva Zelanda',fecha:'Dom 21 Jun',hora:'22:00',sede:'Vancouver'},
+ {id:'G5',g:'G',h:'Egipto',v:'Irán',fecha:'Vie 26 Jun',hora:'00:00',sede:'Vancouver'},
+ {id:'G6',g:'G',h:'Nueva Zelanda',v:'Bélgica',fecha:'Vie 26 Jun',hora:'21:00',sede:'Seattle'},
+
+ // GRUPO H
+ {id:'H1',g:'H',h:'España',v:'Cabo Verde',fecha:'Lun 15 Jun',hora:'13:00',sede:'Miami'},
+ {id:'H2',g:'H',h:'Arabia Saudita',v:'Uruguay',fecha:'Lun 15 Jun',hora:'19:00',sede:'Atlanta'},
+ {id:'H3',g:'H',h:'España',v:'Arabia Saudita',fecha:'Dom 21 Jun',hora:'13:00',sede:'Miami'},
+ {id:'H4',g:'H',h:'Cabo Verde',v:'Uruguay',fecha:'Dom 21 Jun',hora:'19:00',sede:'Atlanta'},
+ {id:'H5',g:'H',h:'Uruguay',v:'España',fecha:'Vie 26 Jun',hora:'21:00',sede:'Houston'},
+ {id:'H6',g:'H',h:'Cabo Verde',v:'Arabia Saudita',fecha:'Vie 26 Jun',hora:'21:00',sede:'Guadalajara'},
+
+ // GRUPO I
+ {id:'I1',g:'I',h:'Francia',v:'Senegal',fecha:'Mar 16 Jun',hora:'16:00',sede:'Nueva York / Nueva Jersey'},
+ {id:'I2',g:'I',h:'Irak',v:'Noruega',fecha:'Mar 16 Jun',hora:'19:00',sede:'Boston'},
+ {id:'I3',g:'I',h:'Francia',v:'Irak',fecha:'Lun 22 Jun',hora:'18:00',sede:'Nueva York / Nueva Jersey'},
+ {id:'I4',g:'I',h:'Noruega',v:'Senegal',fecha:'Lun 22 Jun',hora:'21:00',sede:'Philadelphia'},
+ {id:'I5',g:'I',h:'Noruega',v:'Francia',fecha:'Vie 26 Jun',hora:'16:00',sede:'Nueva York / Nueva Jersey'},
+ {id:'I6',g:'I',h:'Senegal',v:'Irak',fecha:'Vie 26 Jun',hora:'16:00',sede:'Toronto'},
+
+ // GRUPO J
+ {id:'J1',g:'J',h:'Austria',v:'Jordania',fecha:'Mar 16 Jun',hora:'01:00',sede:'San Francisco'},
+ {id:'J2',g:'J',h:'Argentina',v:'Argelia',fecha:'Mar 16 Jun',hora:'22:00',sede:'Kansas City'},
+ {id:'J3',g:'J',h:'Jordania',v:'Argelia',fecha:'Lun 22 Jun',hora:'00:00',sede:'San Francisco'},
+ {id:'J4',g:'J',h:'Argentina',v:'Austria',fecha:'Lun 22 Jun',hora:'14:00',sede:'Dallas'},
+ {id:'J5',g:'J',h:'Jordania',v:'Argentina',fecha:'Sáb 27 Jun',hora:'23:00',sede:'Atlanta'},
+ {id:'J6',g:'J',h:'Argelia',v:'Austria',fecha:'Sáb 27 Jun',hora:'23:00',sede:'Kansas City'},
+
+ // GRUPO K
+ {id:'K1',g:'K',h:'Portugal',v:'RD Congo',fecha:'Mié 17 Jun',hora:'14:00',sede:'Houston'},
+ {id:'K2',g:'K',h:'Uzbekistán',v:'Colombia',fecha:'Mié 17 Jun',hora:'23:00',sede:'Ciudad de México'},
+ {id:'K3',g:'K',h:'Portugal',v:'Uzbekistán',fecha:'Mar 23 Jun',hora:'14:00',sede:'Houston'},
+ {id:'K4',g:'K',h:'RD Congo',v:'Colombia',fecha:'Mar 23 Jun',hora:'23:00',sede:'Guadalajara'},
+ {id:'K5',g:'K',h:'Colombia',v:'Portugal',fecha:'Sáb 27 Jun',hora:'20:30',sede:'Miami'},
+ {id:'K6',g:'K',h:'RD Congo',v:'Uzbekistán',fecha:'Sáb 27 Jun',hora:'20:30',sede:'Atlanta'},
+
+ // GRUPO L
+ {id:'L1',g:'L',h:'Inglaterra',v:'Croacia',fecha:'Mié 17 Jun',hora:'17:00',sede:'Toronto'},
+ {id:'L2',g:'L',h:'Ghana',v:'Panamá',fecha:'Mié 17 Jun',hora:'20:00',sede:'Dallas'},
+ {id:'L3',g:'L',h:'Inglaterra',v:'Ghana',fecha:'Mar 23 Jun',hora:'17:00',sede:'Boston'},
+ {id:'L4',g:'L',h:'Croacia',v:'Panamá',fecha:'Mar 23 Jun',hora:'20:00',sede:'Toronto'},
+ {id:'L5',g:'L',h:'Panamá',v:'Inglaterra',fecha:'Sáb 27 Jun',hora:'18:00',sede:'Nueva York / Nueva Jersey'},
+ {id:'L6',g:'L',h:'Croacia',v:'Ghana',fecha:'Sáb 27 Jun',hora:'18:00',sede:'Philadelphia'}
 ];
 
 // ============================================================
