@@ -716,7 +716,13 @@ function getMejorTercero(grupos) {
   return t[0]||null;
 }
 function findPartido(id) {
-  for (const r of Object.values(BRACKET)) for (const p of r) if(p.id===id) return p;
+  for (const r of Object.values(BRACKET)) {
+    if (Array.isArray(r)) {
+      for (const p of r) {
+        if (p.id === id) return p;
+      }
+    }
+  }
   return null;
 }
 function grupoTienePartidos(grupo) {
@@ -760,26 +766,46 @@ function labelSlot(slot) {
 }
 
 function renderBracketRonda(containerId, partidos, titulo) {
-  const cont=document.getElementById(containerId); if(!cont) return;
-  cont.innerHTML='';
-  partidos.forEach((m,i)=>{
-    const eq1=resolverSlot(m.s1), eq2=resolverSlot(m.s2);
-    // Solo mostrar label técnico si el equipo está definido, sino mostrar "Por definir"
-    const l1=eq1?eq1.nombre:'Por definir', f1=eq1?eq1.bandera:'—';
-    const l2=eq2?eq2.nombre:'Por definir', f2=eq2?eq2.bandera:'—';
-    const r=resultados[m.id]||{};
-    const gh=parseInt(r.h),gv=parseInt(r.v);
-    const ok=!isNaN(gh)&&!isNaN(gv)&&r.h!==''&&r.v!=='';
-    const card=document.createElement('div'); card.className='bracket-match';
-    const h1=document.createElement('div'); h1.className='bracket-match-header';
-    h1.innerHTML=`<span>${titulo} ${i+1}</span><span>${m.fecha} · ${m.sede}</span>`;
-    const r1=document.createElement('div'); r1.className='bracket-equipo'+(ok&&gh>gv?' ganador':'');
-    r1.innerHTML=`<span class="bandera bnd-small">${f1}</span><span class="nombre${!eq1?' pendiente':''}">${l1}</span>`;
-    const i1=crearInputElim(m.id,'h',r.h,!eq1||!eq2); r1.appendChild(i1);
-    const r2=document.createElement('div'); r2.className='bracket-equipo'+(ok&&gv>gh?' ganador':'');
-    r2.innerHTML=`<span class="bandera bnd-small">${f2}</span><span class="nombre${!eq2?' pendiente':''}">${l2}</span>`;
-    const i2=crearInputElim(m.id,'v',r.v,!eq1||!eq2); r2.appendChild(i2);
-    card.appendChild(h1); card.appendChild(r1); card.appendChild(r2);
+  const cont = document.getElementById(containerId); 
+  if (!cont) return;
+  cont.innerHTML = '';
+
+  partidos.forEach((m, i) => {
+    const eq1 = resolverSlot(m.s1), eq2 = resolverSlot(m.s2);
+    
+    // Si el equipo está definido muestra el nombre, sino "Por definir"
+    const l1 = eq1 ? eq1.nombre : 'Por definir', f1 = eq1 ? eq1.bandera : '—';
+    const l2 = eq2 ? eq2.nombre : 'Por definir', f2 = eq2 ? eq2.bandera : '—';
+    
+    const r = resultados[m.id] || {};
+    const gh = parseInt(r.h), gv = parseInt(r.v);
+    const ok = !isNaN(gh) && !isNaN(gv) && r.h !== '' && r.v !== '';
+    
+    const card = document.createElement('div'); 
+    card.className = 'bracket-match';
+    
+    // CABECERA CORREGIDA: Ahora el título es dinámico ("Cuartos", "Semifinal", etc.)
+    const h1 = document.createElement('div'); 
+    h1.className = 'bracket-match-header';
+    h1.innerHTML = `<span>${titulo} ${i + 1}</span><span>${m.fecha} · ${m.sede}</span>`;
+    
+    // Fila del Equipo Local
+    const r1 = document.createElement('div'); 
+    r1.className = 'bracket-equipo' + (ok && gh > gv ? ' ganador' : '');
+    r1.innerHTML = `<span class="bandera bnd-small">${f1}</span><span class="nombre${!eq1 ? ' pendiente' : ''}">${l1}</span>`;
+    const i1 = crearInputElim(m.id, 'h', r.h, !eq1 || !eq2); 
+    r1.appendChild(i1);
+    
+    // Fila del Equipo Visitante
+    const r2 = document.createElement('div'); 
+    r2.className = 'bracket-equipo' + (ok && gv > gh ? ' ganador' : '');
+    r2.innerHTML = `<span class="bandera bnd-small">${f2}</span><span class="nombre${!eq2 ? ' pendiente' : ''}">${l2}</span>`;
+    const i2 = crearInputElim(m.id, 'v', r.v, !eq1 || !eq2); 
+    r2.appendChild(i2);
+    
+    card.appendChild(h1); 
+    card.appendChild(r1); 
+    card.appendChild(r2);
     cont.appendChild(card);
   });
 }
@@ -833,24 +859,31 @@ function renderClasificados16() {
 function renderEliminatorias() {
   invalidarCache();
   renderClasificados16();
-  renderBracketRonda('bracket-r16', BRACKET.r16, 'Partido');
-  renderBracketRonda('bracket-qf',  BRACKET.qf,  'Octavos');
-  renderBracketRonda('bracket-sf',  BRACKET.sf,  'Cuartos');
-  renderBracketRonda('bracket-semi',BRACKET.semi,'Semifinal');
+  
+  // SE RENDERIZAN TODAS LAS ETAPAS DEL BRACKET EXPANDIDO
+  renderBracketRonda('bracket-r32', BRACKET.r32, '16avos');
+  renderBracketRonda('bracket-r16', BRACKET.r16, 'Octavos');
+  renderBracketRonda('bracket-qf', BRACKET.qf, 'Cuartos');
+  renderBracketRonda('bracket-sf', BRACKET.semi, 'Semifinal'); // <- CORREGIDO: antes decía BRACKET.sf
   renderBracketRonda('bracket-ter', BRACKET.ter, 'Tercer Puesto');
   renderBracketRonda('bracket-fin', BRACKET.fin, 'Final');
-  // Campeón
-  const r=resultados['FIN_1'];
-  const panel=document.getElementById('campeon-panel');
-  if (r&&r.h!==''&&r.h!==undefined&&r.v!==''&&r.v!==undefined) {
-    const gh=parseInt(r.h),gv=parseInt(r.v);
-    if (!isNaN(gh)&&!isNaN(gv)&&gh!==gv) {
-      const fin=BRACKET.fin[0];
-      const c=gh>gv?resolverSlot(fin.s1):resolverSlot(fin.s2);
-      if (c) { panel.style.display='block'; document.getElementById('campeon-nombre').innerHTML=c.bandera+' '+c.nombre; return; }
+  
+  // Lógica automática para coronar al Campeón
+  const r = resultados['FIN_1'];
+  const panel = document.getElementById('campeon-panel');
+  if (r && r.h !== '' && r.h !== undefined && r.v !== '' && r.v !== undefined) {
+    const gh = parseInt(r.h), gv = parseInt(r.v);
+    if (!isNaN(gh) && !isNaN(gv) && gh !== gv) {
+      const fin = BRACKET.fin[0]; // <- CORREGIDO: Se agregó el índice [0] para leer el objeto interno
+      const c = gh > gv ? resolverSlot(fin.s1) : resolverSlot(fin.s2);
+      if (c) { 
+        panel.style.display = 'block'; 
+        document.getElementById('campeon-nombre').innerHTML = c.bandera + ' ' + c.nombre; 
+        return; 
+      }
     }
   }
-  panel.style.display='none';
+  panel.style.display = 'none';
 }
 
 // ============================================================
