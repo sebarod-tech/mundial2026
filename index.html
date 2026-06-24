@@ -233,8 +233,8 @@ footer span{color:var(--arg1);}
   <div class="sec-title">Semifinales</div>
   <div style="font-size:.82rem;color:var(--gris);margin-bottom:16px;">Se completa con los ganadores de cuartos.</div>
   <div class="elim-section">
-    <div class="elim-title">2 Partidos — 14 y 15 Jul 2026</div>
-    <div class="bracket-grid" id="bracket-semi"></div>
+    <div class="elim-title">Semifinales</div>
+    <div id="bracket-sf" class="bracket-grid"></div>
   </div>
   <div class="elim-section" style="margin-top:20px;">
     <div class="elim-title">Tercer Puesto — 18 Jul · Miami</div>
@@ -865,7 +865,7 @@ function renderEliminatorias() {
   renderBracketRonda('bracket-r32', BRACKET.r32, '16avos');
   renderBracketRonda('bracket-r16', BRACKET.r16, 'Octavos');
   renderBracketRonda('bracket-qf', BRACKET.qf, 'Cuartos');
-  renderBracketRonda('bracket-sf', BRACKET.semi, 'Semifinal'); // <- CORREGIDO: antes decía BRACKET.sf
+  renderBracketRonda('bracket-sf', BRACKET.semi, 'Semifinal');
   renderBracketRonda('bracket-ter', BRACKET.ter, 'Tercer Puesto');
   renderBracketRonda('bracket-fin', BRACKET.fin, 'Final');
   
