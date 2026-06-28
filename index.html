@@ -372,23 +372,25 @@ const PARTIDOS_GRUPOS = [
 // ============================================================
 const BRACKET = {
   r32: [
-    {id:'R32_1',  fecha:'Dom 28 Jun', hora:'13:00', sede:'Los Ángeles',              s1:{tipo:'pos',grupo:'A',pos:2}, s2:{tipo:'pos',grupo:'B',pos:2}},
-    {id:'R32_2',  fecha:'Lun 29 Jun', hora:'14:00', sede:'Houston',                  s1:{tipo:'pos',grupo:'C',pos:1}, s2:{tipo:'pos',grupo:'F',pos:2}},
-    {id:'R32_3',  fecha:'Lun 29 Jun', hora:'17:30', sede:'Boston',                   s1:{tipo:'pos',grupo:'E',pos:1}, s2:{tipo:'3ro',nro:1}},
-    {id:'R32_4',  fecha:'Lun 29 Jun', hora:'22:00', sede:'Monterrey',                s1:{tipo:'pos',grupo:'F',pos:1}, s2:{tipo:'pos',grupo:'C',pos:2}},
-    {id:'R32_5',  fecha:'Mar 30 Jun', hora:'14:00', sede:'Dallas',                   s1:{tipo:'pos',grupo:'E',pos:2}, s2:{tipo:'pos',grupo:'I',pos:2}},
-    {id:'R32_6',  fecha:'Mar 30 Jun', hora:'18:00', sede:'Nueva York / NJ',          s1:{tipo:'pos',grupo:'I',pos:1}, s2:{tipo:'3ro',nro:2}},
-    {id:'R32_7',  fecha:'Mar 30 Jun', hora:'22:00', sede:'Ciudad de México',         s1:{tipo:'pos',grupo:'A',pos:1}, s2:{tipo:'3ro',nro:3}},
-    {id:'R32_8',  fecha:'Mié 01 Jul', hora:'13:00', sede:'Atlanta',                  s1:{tipo:'pos',grupo:'L',pos:1}, s2:{tipo:'3ro',nro:4}},
-    {id:'R32_9',  fecha:'Mié 01 Jul', hora:'17:00', sede:'Seattle',                  s1:{tipo:'pos',grupo:'G',pos:1}, s2:{tipo:'3ro',nro:5}},
-    {id:'R32_10', fecha:'Mié 01 Jul', hora:'21:00', sede:'San Francisco',            s1:{tipo:'pos',grupo:'D',pos:1}, s2:{tipo:'3ro',nro:6}},
-    {id:'R32_11', fecha:'Jue 02 Jul', hora:'16:00', sede:'Los Ángeles',              s1:{tipo:'pos',grupo:'H',pos:1}, s2:{tipo:'pos',grupo:'J',pos:2}},
-    {id:'R32_12', fecha:'Jue 02 Jul', hora:'20:00', sede:'Toronto',                  s1:{tipo:'pos',grupo:'K',pos:2}, s2:{tipo:'pos',grupo:'L',pos:2}},
-    {id:'R32_13', fecha:'Jue 02 Jul', hora:'22:30', sede:'Kansas City',              s1:{tipo:'pos',grupo:'K',pos:1}, s2:{tipo:'3ro',nro:7}},
-    {id:'R32_14', fecha:'Vie 03 Jul', hora:'00:00', sede:'Vancouver',                s1:{tipo:'pos',grupo:'B',pos:1}, s2:{tipo:'3ro',nro:8}},
-    {id:'R32_15', fecha:'Vie 03 Jul', hora:'16:00', sede:'Dallas',                   s1:{tipo:'pos',grupo:'D',pos:2}, s2:{tipo:'pos',grupo:'G',pos:2}},
-    {id:'R32_16', fecha:'Vie 03 Jul', hora:'19:00', sede:'Miami',                    s1:{tipo:'pos',grupo:'J',pos:1}, s2:{tipo:'pos',grupo:'H',pos:2}}
-  ],
+    {id:'R32_1', fecha:'Dom 28 Jun', hora:'16:00', sede:'Los Ángeles', s1:{nombre:'Sudáfrica'}, s2:{nombre:'Canadá'}},
+    {id:'R32_2', fecha:'Lun 29 Jun', hora:'14:00', sede:'Houston', s1:{nombre:'Brasil'}, s2:{nombre:'Japón'}},
+    {id:'R32_3', fecha:'Lun 29 Jun', hora:'17:30', sede:'Boston', s1:{nombre:'Alemania'}, s2:{nombre:'Paraguay'}},
+    {id:'R32_4', fecha:'Lun 29 Jun', hora:'22:00', sede:'Monterrey', s1:{nombre:'Países Bajos'}, s2:{nombre:'Marruecos'}},
+    {id:'R32_5', fecha:'Mar 30 Jun', hora:'14:00', sede:'Dallas', s1:{nombre:'Costa de Marfil'}, s2:{nombre:'Noruega'}},
+    {id:'R32_6', fecha:'Mar 30 Jun', hora:'18:00', sede:'Nueva York / NJ', s1:{nombre:'Francia'}, s2:{nombre:'Suecia'}},
+    {id:'R32_7', fecha:'Mar 30 Jun', hora:'22:00', sede:'Ciudad de México', s1:{nombre:'México'}, s2:{nombre:'Ecuador'}},
+    {id:'R32_8', fecha:'Mié 01 Jul', hora:'13:00', sede:'Atlanta', s1:{nombre:'Inglaterra'}, s2:{nombre:'RD Congo'}},
+    {id:'R32_9', fecha:'Mié 01 Jul', hora:'17:00', sede:'Seattle', s1:{nombre:'Bélgica'}, s2:{nombre:'Senegal'}},
+    {id:'R32_10', fecha:'Mié 01 Jul', hora:'21:00', sede:'San Francisco', s1:{nombre:'EE.UU.'}, s2:{nombre:'Bosnia'}},
+    {id:'R32_11', fecha:'Jue 02 Jul', hora:'16:00', sede:'Los Ángeles', s1:{nombre:'España'}, s2:{nombre:'Austria'}},
+    {id:'R32_12', fecha:'Jue 02 Jul', hora:'20:00', sede:'Toronto', s1:{nombre:'Portugal'}, s2:{nombre:'Croacia'}},
+    // Orden cronológico corregido a partir de aquí para solucionar la interfaz:
+    {id:'R32_13', fecha:'Vie 03 Jul', hora:'00:00', sede:'Vancouver', s1:{nombre:'Suiza'}, s2:{nombre:'Senegal'}},
+    {id:'R32_14', fecha:'Vie 03 Jul', hora:'15:00', sede:'Dallas', s1:{nombre:'Australia'}, s2:{nombre:'Egipto'}},
+    {id:'R32_15', fecha:'Vie 03 Jul', hora:'19:00', sede:'Miami', s1:{nombre:'Argentina'}, s2:{nombre:'Cabo Verde'}},
+    {id:'R32_16', fecha:'Vie 03 Jul', hora:'22:30', sede:'Kansas City', s1:{nombre:'Colombia'}, s2:{nombre:'Ghana'}}
+  ]
+
   r16: [
     {id:'R16_1', fecha:'Sáb 04 Jul', hora:'14:00', sede:'Houston',                   s1:{tipo:'ganador',partido:'R32_3'}, s2:{tipo:'ganador',partido:'R32_5'}},
     {id:'R16_2', fecha:'Sáb 04 Jul', hora:'18:00', sede:'Philadelphia',              s1:{tipo:'ganador',partido:'R32_4'}, s2:{tipo:'ganador',partido:'R32_7'}},
