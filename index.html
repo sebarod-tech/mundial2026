@@ -409,7 +409,7 @@ const BRACKET = {
     // --- Martes 07 de Julio ---
     {id:'R16_7', fecha:'Mar 07 Jul', hora:'17:00', sede:'Atlanta', s1:{tipo:'ganador',partido:'R32_13'}, s2:{tipo:'ganador',partido:'R32_14'}},
     {id:'R16_8', fecha:'Mar 07 Jul', hora:'21:30', sede:'Vancouver', s1:{tipo:'ganador',partido:'R32_15'}, s2:{tipo:'ganador',partido:'R32_16'}}
-  ]
+  ],
   qf: [
     // --- Jueves 09 de Julio ---
     {id:'QF_1', fecha:'Jue 09 Jul', hora:'17:00', sede:'Boston', s1:{tipo:'ganador',partido:'R16_1'}, s2:{tipo:'ganador',partido:'R16_2'}},
@@ -564,7 +564,7 @@ function getMejoresTerceros() {
   return terceros;
 }
 
-Tabla(tableId, grupo, esArg) {
+function renderTabla(tableId, grupo, esArg) {
   const tabla = getTabla(grupo);
   const tbody = document.querySelector('#'+tableId+' tbody');
   if (!tbody) return;
@@ -603,7 +603,7 @@ function crearInput(pid, lado, val) {
   return inp;
 }
 
-PartidoRow(pt, container) {
+function renderPartidoRow(pt, container) {
   const eqH=getEquipo(pt.h), eqV=getEquipo(pt.v);
   const esArg = pt.h==='Argentina'||pt.v==='Argentina';
   const r = resultados[pt.id]||{};
@@ -626,7 +626,7 @@ PartidoRow(pt, container) {
 // ============================================================
 // RENDER SECCIONES
 // ============================================================
-Grupos() {
+function renderGrupos() {
   const cont=document.getElementById('grupos-container'); cont.innerHTML='';
   for (const [letra,g] of Object.entries(GRUPOS)) {
     const card=document.createElement('div'); card.className='grupo-card';
@@ -639,7 +639,7 @@ Grupos() {
   renderTerceros();
 }
 
-Terceros() {
+function renderTerceros() {
   const tbody=document.querySelector('#tabla-terceros tbody'); if(!tbody) return;
   const terceros = getMejoresTerceros();
   tbody.innerHTML='';
