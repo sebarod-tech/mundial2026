@@ -564,7 +564,7 @@ function getMejoresTerceros() {
   return terceros;
 }
 
-function renderTabla(tableId, grupo, esArg) {
+Tabla(tableId, grupo, esArg) {
   const tabla = getTabla(grupo);
   const tbody = document.querySelector('#'+tableId+' tbody');
   if (!tbody) return;
@@ -603,7 +603,7 @@ function crearInput(pid, lado, val) {
   return inp;
 }
 
-function renderPartidoRow(pt, container) {
+PartidoRow(pt, container) {
   const eqH=getEquipo(pt.h), eqV=getEquipo(pt.v);
   const esArg = pt.h==='Argentina'||pt.v==='Argentina';
   const r = resultados[pt.id]||{};
@@ -626,7 +626,7 @@ function renderPartidoRow(pt, container) {
 // ============================================================
 // RENDER SECCIONES
 // ============================================================
-function renderGrupos() {
+Grupos() {
   const cont=document.getElementById('grupos-container'); cont.innerHTML='';
   for (const [letra,g] of Object.entries(GRUPOS)) {
     const card=document.createElement('div'); card.className='grupo-card';
@@ -639,7 +639,7 @@ function renderGrupos() {
   renderTerceros();
 }
 
-function renderTerceros() {
+Terceros() {
   const tbody=document.querySelector('#tabla-terceros tbody'); if(!tbody) return;
   const terceros = getMejoresTerceros();
   tbody.innerHTML='';
@@ -654,15 +654,24 @@ function renderTerceros() {
 }
 
 function renderFixtureCompleto() {
-  const cont=document.getElementById('fixture-completo'); cont.innerHTML='';
-  const porFecha={};
-  PARTIDOS_GRUPOS.forEach(pt=>{ if(!porFecha[pt.fecha]) porFecha[pt.fecha]=[]; porFecha[pt.fecha].push(pt); });
-  for (const [fecha,pts] of Object.entries(porFecha)) {
-    const dg=document.createElement('div'); dg.className='dia-grupo';
-    dg.innerHTML=`<div class="dia-label">📅 ${fecha}</div>`;
-    const lista=document.createElement('div');
-    pts.forEach(pt=>renderPartidoRow(pt,lista));
-    dg.appendChild(lista); cont.appendChild(dg);
+  const cont = document.getElementById('fixture-completo'); 
+  if (!cont) return;
+  cont.innerHTML = '';
+  const porFecha = {};
+  
+  PARTIDOS_GRUPOS.forEach(pt => { 
+    if (!porFecha[pt.fecha]) porFecha[pt.fecha] = []; 
+    porFecha[pt.fecha].push(pt); 
+  });
+  
+  for (const [fecha, pts] of Object.entries(porFecha)) {
+    const dg = document.createElement('div'); 
+    dg.className = 'dia-grupo';
+    dg.innerHTML = `<div class="dia-label">📅 ${fecha}</div>`;
+    const lista = document.createElement('div');
+    pts.forEach(pt => renderPartidoRow(pt, lista));
+    dg.appendChild(lista); 
+    cont.appendChild(dg);
   }
 }
 
@@ -755,7 +764,7 @@ function crearInputElim(pid, lado, val, disabled) {
 
 function renderBracketRonda(containerId, partidos, titulo) {
   const cont = document.getElementById(containerId);
-  if (!cont) return;
+  if (!cont || !partidos) return; 
   cont.innerHTML = '';
 
   partidos.forEach((m, i) => {
@@ -773,7 +782,6 @@ function renderBracketRonda(containerId, partidos, titulo) {
     const card = document.createElement('div');
     card.className = 'bracket-match';
 
-    // 1. Encabezado ordenado (evita que se amontone el texto)
     const h1 = document.createElement('div');
     h1.className = 'bracket-match-header';
     h1.style.display = 'flex';
@@ -785,24 +793,16 @@ function renderBracketRonda(containerId, partidos, titulo) {
     `;
     card.appendChild(h1);
 
-    // 2. Fila Equipo Local (Slot 1)
     const r1 = document.createElement('div');
     r1.className = 'bracket-equipo' + (ok && gh > gv ? ' ganador' : '');
-    r1.innerHTML = `
-      <span class="bandera bnd-small">${f1}</span>
-      <span class="nombre ${pend1 ? 'pendiente' : ''}" style="flex:1;">${l1}</span>
-    `;
+    r1.innerHTML = `<span class="bandera bnd-small">${f1}</span><span class="nombre ${pend1 ? 'pendiente' : ''}" style="flex:1;">${l1}</span>`;
     const i1 = crearInputElim(m.id, 'h', r.h, pend1 || pend2);
     r1.appendChild(i1);
     card.appendChild(r1);
 
-    // 3. Fila Equipo Visitante (Slot 2)
     const r2 = document.createElement('div');
     r2.className = 'bracket-equipo' + (ok && gv > gh ? ' ganador' : '');
-    r2.innerHTML = `
-      <span class="bandera bnd-small">${f2}</span>
-      <span class="nombre ${pend2 ? 'pendiente' : ''}" style="flex:1;">${l2}</span>
-    `;
+    r2.innerHTML = `<span class="bandera bnd-small">${f2}</span><span class="nombre ${pend2 ? 'pendiente' : ''}" style="flex:1;">${l2}</span>`;
     const i2 = crearInputElim(m.id, 'v', r.v, pend1 || pend2);
     r2.appendChild(i2);
     card.appendChild(r2);
@@ -953,12 +953,10 @@ function renderPartidosHoy() {
   const box = document.getElementById('today-matches');
   if (!box) return;
 
-  // Etiquetas de fase para el bracket
   const FASES = {
     r32:'Dieciseisavos', r16:'Octavos', qf:'Cuartos', semi:'Semifinal', ter:'Tercer Puesto', fin:'Final'
   };
 
-  // Parsear fecha de partidos del bracket (formato "Dom 28 Jun")
   function parseFechaBracket(p) {
     const partes = p.fecha.split(' ');
     const dia = parseInt(partes[1]);
@@ -970,46 +968,43 @@ function renderPartidosHoy() {
     return dt.getDate()===hoy.getDate() && dt.getMonth()===hoy.getMonth() && dt.getFullYear()===hoy.getFullYear();
   }
 
-  // Recopilar todos los partidos de hoy con su fase
   const todosHoy = [];
 
-  // Fase de grupos
-  PARTIDOS_GRUPOS.forEach(p => {
-    const f = parseFechaPartido(p);
-    if (esHoy(f)) todosHoy.push({...p, dt:f, fase:`Grupo ${p.g}`});
-  });
-
-  // Fases eliminatorias
-  for (const [clave, lista] of Object.entries(BRACKET)) {
-    lista.forEach(p => {
-      const f = parseFechaBracket(p);
-      if (esHoy(f)) todosHoy.push({...p, dt:f, fase:FASES[clave]||clave});
+  if (typeof PARTIDOS_GRUPOS !== 'undefined') {
+    PARTIDOS_GRUPOS.forEach(p => {
+      const f = parseFechaPartido(p);
+      if (esHoy(f)) todosHoy.push({...p, dt:f, fase:`Grupo ${p.g}`});
     });
   }
 
-  // Ordenar por hora
-  todosHoy.sort((a,b) => a.dt - b.dt);
+  for (const [clave, lista] of Object.entries(BRACKET)) {
+    if (lista) {
+      lista.forEach(p => {
+        const f = parseFechaBracket(p);
+        if (esHoy(f)) todosHoy.push({...p, dt:f, fase:FASES[clave]||clave});
+      });
+    }
+  }
 
+  todosHoy.sort((a,b) => a.dt - b.dt);
   box.innerHTML = '';
+  
   if (todosHoy.length === 0) {
-    box.innerHTML='<p style="color:var(--gris);font-size:.85rem;padding:12px 0;">Sin partidos hoy.</p>';
+    box.innerHTML = '<p style="color:var(--gris);font-size:.85rem;padding:12px 0;">Sin partidos hoy.</p>';
     return;
   }
 
   todosHoy.forEach(p => {
-    // Resolver equipos: grupos tienen nombre directo, bracket tiene slots
     let nombreH, banderaH, nombreV, banderaV;
     if (p.g) {
-      // Partido de grupos
       const eH = getEquipo(p.h), eV = getEquipo(p.v);
       nombreH = eH.nombre; banderaH = eH.bandera;
       nombreV = eV.nombre; banderaV = eV.bandera;
     } else {
-      // Partido de bracket — resolver slots
       const eq1 = resolverSlot(p.s1), eq2 = resolverSlot(p.s2);
-      nombreH  = eq1 ? eq1.nombre  : labelSlot(p.s1);
+      nombreH = eq1 ? eq1.nombre : labelSlot(p.s1);
       banderaH = eq1 ? eq1.bandera : '⏳';
-      nombreV  = eq2 ? eq2.nombre  : labelSlot(p.s2);
+      nombreV = eq2 ? eq2.nombre : labelSlot(p.s2);
       banderaV = eq2 ? eq2.bandera : '⏳';
     }
 
@@ -1022,16 +1017,16 @@ function renderPartidosHoy() {
 
     const marcador = tieneResultado
       ? `<div style="text-align:center">
-           <span style="font-size:1.4rem;font-weight:700;color:var(--oro)">${r.h} - ${r.v}</span>
-           <span class="hora-badge">${p.hora} hs</span>
-           <span class="sede-badge">${p.sede}</span>
-           <span class="sede-badge" style="color:var(--arg1);margin-top:2px">${p.fase}</span>
+          <span style="font-size:1.4rem;font-weight:700;color:var(--oro)">${r.h} - ${r.v}</span>
+          <span class="hora-badge">${p.hora} hs</span>
+          <span class="sede-badge">${p.sede}</span>
+          <span class="sede-badge" style="color:var(--arg1);margin-top:2px">${p.fase}</span>
          </div>`
       : `<div style="text-align:center">
-           <span class="vs-sep">vs</span>
-           <span class="hora-badge">${p.hora} hs</span>
-           <span class="sede-badge">${p.sede}</span>
-           <span class="sede-badge" style="color:var(--arg1);margin-top:2px">${p.fase}</span>
+          <span class="vs-sep">vs</span>
+          <span class="hora-badge">${p.hora} hs</span>
+          <span class="sede-badge">${p.sede}</span>
+          <span class="sede-badge" style="color:var(--arg1);margin-top:2px">${p.fase}</span>
          </div>`;
 
     d.innerHTML = `
