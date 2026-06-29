@@ -70,9 +70,9 @@ body{background:var(--bg);color:var(--texto);font-family:'Inter','Noto Color Emo
 .arg-match-banner{background:linear-gradient(90deg,rgba(116,172,223,.15),rgba(116,172,223,.05));border:1px solid var(--arg1);border-radius:10px;padding:10px 16px;margin-bottom:16px;font-size:.8rem;color:var(--arg1);display:flex;align-items:center;gap:8px;}
 .elim-section{background:var(--card);border:1px solid var(--borde);border-radius:12px;padding:20px;margin-bottom:24px;}
 .elim-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:2px;color:var(--oro);margin-bottom:16px;border-bottom:1px solid var(--borde);padding-bottom:10px;}
-.bracket-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
-.bracket-match{background:var(--bg3);border:1px solid var(--borde);border-radius:8px;overflow:hidden;}
-.bracket-match-header{background:var(--bg2);padding:6px 12px;font-size:.68rem;color:var(--gris);font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;justify-content:space-between;}
+.-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.-match{background:var(--bg3);border:1px solid var(--borde);border-radius:8px;overflow:hidden;}
+.bracket-match-header{background:var(--bg2);padding:8px 12px;font-size:.68rem;color:var(--gris);font-weight:700;letter-spacing:1px;text-transform:uppercase;display:flex;flex-direction:column;gap:4px;}
 .bracket-equipo{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--borde);}
 .bracket-equipo:last-child{border-bottom:none;}
 .bracket-equipo .bandera{font-size:18px;}
@@ -773,25 +773,40 @@ function renderBracketRonda(containerId, partidos, titulo) {
     const card = document.createElement('div');
     card.className = 'bracket-match';
 
+    // 1. Encabezado ordenado (evita que se amontone el texto)
     const h1 = document.createElement('div');
     h1.className = 'bracket-match-header';
-    h1.innerHTML = `<span>${titulo} ${i+1}</span><span>${m.fecha} · ${m.hora} hs · ${m.sede}</span>`;
+    h1.style.display = 'flex';
+    h1.style.flexDirection = 'column';
+    h1.style.gap = '4px';
+    h1.innerHTML = `
+      <span style="color: var(--oro); font-size: 0.75rem; font-weight:700;">${titulo} — Partido ${i+1}</span>
+      <span style="color: var(--gris); font-weight: 400; font-size: 0.65rem;">📅 ${m.fecha} · 🕒 ${m.hora} HS · 📍 ${m.sede}</span>
+    `;
+    card.appendChild(h1);
 
+    // 2. Fila Equipo Local (Slot 1)
     const r1 = document.createElement('div');
     r1.className = 'bracket-equipo' + (ok && gh > gv ? ' ganador' : '');
-    r1.innerHTML = `<span class="bandera bnd-small">${f1}</span><span class="nombre${pend1?' pendiente':''}">${l1}</span>`;
+    r1.innerHTML = `
+      <span class="bandera bnd-small">${f1}</span>
+      <span class="nombre ${pend1 ? 'pendiente' : ''}" style="flex:1;">${l1}</span>
+    `;
     const i1 = crearInputElim(m.id, 'h', r.h, pend1 || pend2);
     r1.appendChild(i1);
+    card.appendChild(r1);
 
+    // 3. Fila Equipo Visitante (Slot 2)
     const r2 = document.createElement('div');
     r2.className = 'bracket-equipo' + (ok && gv > gh ? ' ganador' : '');
-    r2.innerHTML = `<span class="bandera bnd-small">${f2}</span><span class="nombre${pend2?' pendiente':''}">${l2}</span>`;
+    r2.innerHTML = `
+      <span class="bandera bnd-small">${f2}</span>
+      <span class="nombre ${pend2 ? 'pendiente' : ''}" style="flex:1;">${l2}</span>
+    `;
     const i2 = crearInputElim(m.id, 'v', r.v, pend1 || pend2);
     r2.appendChild(i2);
-
-    card.appendChild(h1);
-    card.appendChild(r1);
     card.appendChild(r2);
+
     cont.appendChild(card);
   });
 }
