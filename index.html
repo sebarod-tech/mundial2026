@@ -78,6 +78,31 @@ body{background:var(--bg);color:var(--texto);font-family:'Inter','Noto Color Emo
 .bracket-equipo .bandera{font-size:18px;}
 .bracket-equipo .nombre{font-weight:600;font-size:.85rem;flex:1;}
 .bracket-equipo .nombre.pendiente{color:var(--gris);font-style:italic;font-size:.75rem;font-weight:400;}
+
+/* CUADRO VISUAL DE ELIMINACIÓN (auto-completable) */
+.wcb-scroll{overflow-x:auto;padding:4px 4px 16px;}
+.wcb-header{display:grid;grid-template-columns:repeat(9,132px);column-gap:30px;margin-bottom:10px;min-width:1428px;}
+.wcb-col-title{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--oro);text-align:center;}
+.wcb{display:grid;grid-template-columns:repeat(9,132px);grid-auto-rows:minmax(28px,auto);column-gap:30px;position:relative;min-width:1428px;}
+.wcb-item{position:relative;display:flex;align-items:center;}
+.wcb-match{width:100%;background:var(--bg3);border:1px solid var(--borde);border-radius:6px;overflow:hidden;}
+.wcb-match.wcb-final{border-color:var(--oro-oscuro);box-shadow:0 0 10px rgba(255,215,0,.15);}
+.wcb-team{display:flex;align-items:center;gap:5px;padding:5px 7px;border-bottom:1px solid var(--borde);}
+.wcb-team:last-child{border-bottom:none;}
+.wcb-team.win{background:rgba(255,215,0,.10);}
+.wcb-team.win .wcb-name{color:var(--oro);font-weight:700;}
+.wcb-flag{font-size:13px;flex-shrink:0;font-family:'Noto Color Emoji',sans-serif;}
+.wcb-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.68rem;font-weight:600;}
+.wcb-name.pending{color:var(--gris);font-style:italic;font-weight:400;font-size:.62rem;}
+.wcb-score{font-weight:700;min-width:12px;text-align:center;color:var(--texto);font-size:.72rem;}
+.wcb-item[data-pair="single"]::after{content:'';position:absolute;top:50%;width:30px;height:2px;background:var(--borde);}
+.wcb-item[data-dir="r"][data-pair="single"]::after{right:-30px;}
+.wcb-item[data-dir="l"][data-pair="single"]::after{left:-30px;}
+.wcb-item[data-dir="r"][data-pair="top"]::after{content:'';position:absolute;right:-30px;top:50%;height:50%;width:30px;border-top:2px solid var(--borde);border-right:2px solid var(--borde);}
+.wcb-item[data-dir="r"][data-pair="bottom"]::after{content:'';position:absolute;right:-30px;bottom:50%;height:50%;width:30px;border-bottom:2px solid var(--borde);border-right:2px solid var(--borde);}
+.wcb-item[data-dir="l"][data-pair="top"]::after{content:'';position:absolute;left:-30px;top:50%;height:50%;width:30px;border-top:2px solid var(--borde);border-left:2px solid var(--borde);}
+.wcb-item[data-dir="l"][data-pair="bottom"]::after{content:'';position:absolute;left:-30px;bottom:50%;height:50%;width:30px;border-bottom:2px solid var(--borde);border-left:2px solid var(--borde);}
+.wcb-campeon{text-align:center;margin-top:14px;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--oro);letter-spacing:2px;}
   .bracket-equipo .bnd-small{font-size:16px;min-width:20px;text-align:center;color:var(--gris);}
 .bracket-equipo .gol-input{width:36px;height:36px;font-size:1.1rem;}
 .bracket-equipo.ganador{background:rgba(255,215,0,.07);}
@@ -169,6 +194,15 @@ footer span{color:var(--arg1);}
     Partidos de Hoy
   </div>
   <div id="today-matches"></div>
+
+  <div class="sec-title" style="margin-top:25px">
+    Cuadro de Eliminación
+  </div>
+  <div class="wcb-scroll">
+    <div id="wcb-header" class="wcb-header"></div>
+    <div id="bracket-visual" class="wcb"></div>
+  </div>
+  <div id="wcb-campeon" class="wcb-campeon"></div>
 </div>
 
 <!-- GRUPOS -->
@@ -808,6 +842,86 @@ function renderBracketRonda(containerId, partidos, titulo) {
   });
 }
 
+// ============================================================
+// CUADRO VISUAL DE ELIMINACIÓN (Home)
+// ============================================================
+const WCB_COLS = [
+  {id:'r32L',  matches:['R32_1','R32_4','R32_3','R32_6','R32_12','R32_11','R32_10','R32_9'], label:'16vos', dir:'r'},
+  {id:'r16L',  matches:['R16_1','R16_2','R16_5','R16_6'],                                    label:'8vos',  dir:'r'},
+  {id:'qfL',   matches:['QF_1','QF_2'],                                                      label:'4tos',  dir:'r'},
+  {id:'semiL', matches:['SF_1'],                                                             label:'Semis', dir:'r'},
+  {id:'final', matches:['FINAL'],                                                            label:'Final', dir:null},
+  {id:'semiR', matches:['SF_2'],                                                             label:'Semis', dir:'l'},
+  {id:'qfR',   matches:['QF_3','QF_4'],                                                      label:'4tos',  dir:'l'},
+  {id:'r16R',  matches:['R16_3','R16_4','R16_7','R16_8'],                                    label:'8vos',  dir:'l'},
+  {id:'r32R',  matches:['R32_2','R32_5','R32_7','R32_8','R32_15','R32_14','R32_13','R32_16'],label:'16vos', dir:'l'}
+];
+const WCB_TOTAL_ROWS = 16;
+
+function wcbMatchHTML(matchId, esFinal) {
+  const todos = getAllPartidos();
+  const m = todos[matchId];
+  if (!m) return '<div class="wcb-match"></div>';
+  const eq1 = resolverSlot(m.s1), eq2 = resolverSlot(m.s2);
+  const l1 = eq1 ? eq1.nombre : 'Por definir';
+  const f1 = eq1 ? eq1.bandera : '⏳';
+  const l2 = eq2 ? eq2.nombre : 'Por definir';
+  const f2 = eq2 ? eq2.bandera : '⏳';
+  const r = resultados[m.id] || {};
+  const gh = parseInt(r.h), gv = parseInt(r.v);
+  const ok = !isNaN(gh) && !isNaN(gv) && r.h !== '' && r.v !== '' && gh !== gv;
+  const s1 = (r.h !== undefined && r.h !== '') ? r.h : '';
+  const s2 = (r.v !== undefined && r.v !== '') ? r.v : '';
+  return `
+    <div class="wcb-match${esFinal ? ' wcb-final' : ''}" title="${m.fecha} · ${m.hora} hs · ${m.sede}">
+      <div class="wcb-team${ok && gh > gv ? ' win' : ''}">
+        <span class="wcb-flag">${f1}</span><span class="wcb-name${eq1 ? '' : ' pending'}">${l1}</span><span class="wcb-score">${s1}</span>
+      </div>
+      <div class="wcb-team${ok && gv > gh ? ' win' : ''}">
+        <span class="wcb-flag">${f2}</span><span class="wcb-name${eq2 ? '' : ' pending'}">${l2}</span><span class="wcb-score">${s2}</span>
+      </div>
+    </div>`;
+}
+
+function renderBracketVisual() {
+  const header = document.getElementById('wcb-header');
+  const wrap = document.getElementById('bracket-visual');
+  const campeonBox = document.getElementById('wcb-campeon');
+  if (!header || !wrap) return;
+
+  header.innerHTML = WCB_COLS.map(c => `<div class="wcb-col-title">${c.label}</div>`).join('');
+
+  wrap.innerHTML = '';
+  WCB_COLS.forEach((col, colIdx) => {
+    const n = col.matches.length;
+    const span = WCB_TOTAL_ROWS / n;
+    col.matches.forEach((mid, i) => {
+      const item = document.createElement('div');
+      item.className = 'wcb-item';
+      item.style.gridColumn = String(colIdx + 1);
+      item.style.gridRow = `${i * span + 1} / span ${span}`;
+      if (col.dir) {
+        item.dataset.dir = col.dir;
+        item.dataset.pair = n === 1 ? 'single' : (i % 2 === 0 ? 'top' : 'bottom');
+      }
+      item.innerHTML = wcbMatchHTML(mid, col.id === 'final');
+      wrap.appendChild(item);
+    });
+  });
+
+  if (campeonBox) {
+    const r = resultados['FINAL'];
+    if (r && r.h !== '' && r.h !== undefined && r.v !== '' && r.v !== undefined) {
+      const gh = parseInt(r.h), gv = parseInt(r.v);
+      if (!isNaN(gh) && !isNaN(gv) && gh !== gv) {
+        const finPartido = BRACKET.fin[0];
+        const c = gh > gv ? resolverSlot(finPartido.s1) : resolverSlot(finPartido.s2);
+        campeonBox.innerHTML = c ? `🏆 Campeón: ${c.bandera} ${c.nombre}` : '';
+      } else { campeonBox.innerHTML = ''; }
+    } else { campeonBox.innerHTML = ''; }
+  }
+}
+
 function renderClasificados16() {
   const grid = document.getElementById('grid-clasificados-16'); if(!grid) return;
   const info = document.getElementById('cls-info');
@@ -839,6 +953,7 @@ function renderEliminatorias() {
   renderBracketRonda('bracket-sf',     BRACKET.semi, 'Semifinal');
   renderBracketRonda('bracket-third',  BRACKET.ter,  'Tercer Puesto');
   renderBracketRonda('bracket-final',  BRACKET.fin,  'Final');
+  renderBracketVisual();
 
   // Coronación automática
   const panel = document.getElementById('campeon-panel');
